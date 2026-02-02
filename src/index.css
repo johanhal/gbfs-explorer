@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=DM+Mono:wght@300;400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Light Mode */
+    --background: 40 23% 96%;           /* #F5F3EF cream */
+    --foreground: 0 0% 10%;             /* #1A1A1A charcoal */
+    --card: 40 20% 98%;                 /* #FAFAF8 white-cream */
+    --card-foreground: 0 0% 10%;
+    --popover: 40 20% 98%;
+    --popover-foreground: 0 0% 10%;
+    --primary: 222 47% 53%;             /* Blue */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 9% 46%;
+    --accent: 220 14% 96%;
+    --accent-foreground: 222 47% 11%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 222 47% 53%;
+    --radius: 0.5rem;
+    /* Chart colors */
+    --chart-1: 222 47% 53%;
+    --chart-2: 217 91% 60%;
+    --chart-3: 199 89% 48%;
+    --chart-4: 173 80% 40%;
+    --chart-5: 160 60% 45%;
+  }
+
+  .dark {
+    /* Dark Mode */
+    --background: 0 0% 5%;              /* #0D0D0D near black */
+    --foreground: 40 23% 96%;           /* #F5F3EF cream */
+    --card: 0 0% 8%;                    /* #141414 dark card */
+    --card-foreground: 40 23% 96%;
+    --popover: 0 0% 8%;
+    --popover-foreground: 40 23% 96%;
+    --primary: 217 91% 60%;             /* Lighter blue for dark mode */
+    --primary-foreground: 222 47% 6%;
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 217 33% 17%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217 33% 17%;
+    --input: 217 33% 17%;
+    --ring: 217 91% 60%;
+    /* Chart colors - dark mode */
+    --chart-1: 217 91% 60%;
+    --chart-2: 199 89% 55%;
+    --chart-3: 173 80% 50%;
+    --chart-4: 160 60% 50%;
+    --chart-5: 145 50% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: -0.01em;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  /* DM Mono for numeric/code styling */
+  .font-mono, .text-numeric {
+    font-family: 'DM Mono', monospace;
+    font-feature-settings: "tnum" 1, "zero" 1;
+  }
+}
+
+/* Smooth transitions for theme changes */
+@layer utilities {
+  .transition-theme {
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+}
