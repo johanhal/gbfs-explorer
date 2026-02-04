@@ -582,6 +582,14 @@ export default function App() {
 
   const navigate = useNavigate(); // Added for navigation
 
+  // Helper to build URL preserving embed param
+  const buildUrl = (params: Record<string, string>) => {
+    const searchParams = new URLSearchParams();
+    if (isEmbedMode) searchParams.set("embed", "true");
+    Object.entries(params).forEach(([key, value]) => searchParams.set(key, value));
+    return `/?${searchParams.toString()}`;
+  };
+
   const handleSuggestionClick = (cityGroup: CitySystemGroup) => {
     // Update input to just the city name for a cleaner display
     setSearchQuery(cityGroup.city);
@@ -589,8 +597,8 @@ export default function App() {
     setSuggestions([]);
     // Explicitly close the dropdown
     setIsDropdownOpen(false);
-    // Navigate to the city-specific view
-    navigate(`/?city=${encodeURIComponent(cityGroup.city)}`);
+    // Navigate to the city-specific view (preserving embed param)
+    navigate(buildUrl({ city: cityGroup.city }));
   };
 
   const handleSearchClick = () => {
@@ -605,14 +613,14 @@ export default function App() {
         const raw = searchQuery.trim();
         const cityOnly = raw.includes("(") ? raw.split("(")[0].trim() : raw;
         if (cityOnly) {
-          navigate(`/?city=${encodeURIComponent(cityOnly)}`);
+          navigate(buildUrl({ city: cityOnly }));
         }
     }
     setIsDropdownOpen(false);
   };
 
   const handleTitleClick = () => {
-    navigate("/");
+    navigate(isEmbedMode ? "/?embed=true" : "/");
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
