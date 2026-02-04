@@ -293,8 +293,16 @@ export default function App() {
     };
   }, []);
 
-  // --- Parse ?city from URL and resolve results inline ---
+  // --- Parse URL params ---
   const location = useLocation();
+
+  // Embed mode: hide title/subtitle when ?embed=true
+  const isEmbedMode = useMemo(() => {
+    const params = new URLSearchParams(location.search);
+    return params.get("embed") === "true";
+  }, [location.search]);
+
+  // --- Parse ?city from URL and resolve results inline ---
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const cityParam = params.get("city");
@@ -654,18 +662,22 @@ export default function App() {
 
   return (
     <div className="flex flex-col min-h-screen bg-background font-sans">
-      <main className="flex-grow w-full max-w-4xl px-4 pt-8 pb-12 text-center mx-auto">
-        <h1
-          className="text-5xl font-bold text-foreground cursor-pointer hover:text-primary transition-colors"
-          onClick={handleTitleClick}
-        >
-          GBFS Explorer
-        </h1>
-        <p className="mt-4 text-xl text-muted-foreground max-w-2xl mx-auto">
-          Search and explore bikes, scooters, and other micromobility in cities worldwide with real-time GBFS data.
-        </p>
+      <main className={`flex-grow w-full max-w-4xl px-4 ${isEmbedMode ? 'pt-4 pb-4' : 'pt-8 pb-12'} text-center mx-auto`}>
+        {!isEmbedMode && (
+          <>
+            <h1
+              className="text-5xl font-bold text-foreground cursor-pointer hover:text-primary transition-colors"
+              onClick={handleTitleClick}
+            >
+              GBFS Explorer
+            </h1>
+            <p className="mt-4 text-xl text-muted-foreground max-w-2xl mx-auto">
+              Search and explore bikes, scooters, and other micromobility in cities worldwide with real-time GBFS data.
+            </p>
+          </>
+        )}
 
-        <Card className="relative w-full max-w-2xl mx-auto mt-10 mb-12 bg-card rounded-xl shadow-md border border-border">
+        <Card className={`relative w-full max-w-2xl mx-auto ${isEmbedMode ? 'mt-0 mb-6' : 'mt-10 mb-12'} bg-card rounded-xl shadow-md border border-border`}>
             <CardContent className="p-4">
               <div className="flex items-center space-x-2">
                 <div className="relative flex-grow">
